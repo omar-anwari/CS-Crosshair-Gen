@@ -1,0 +1,29 @@
+{
+  "name": "cs2-crosshair-generator",
+  "version": "1.0.0",
+  "description": "A web application for creating and customizing crosshairs for CS2.",
+  "main": "src/app/page.tsx",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.1.12",
+    "autoprefixer": "latest",
+    "next": "latest",
+    "postcss": "^8.5.6",
+    "react": "^19.1.1",
+    "react-dom": "latest",
+    "tailwindcss": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/node": "24.3.0",
+    "@types/react": "19.1.10",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "typescript": "latest"
+  },
+  "license": "MIT"
+}

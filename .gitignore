@@ -1,0 +1,94 @@
+# Dependencies
+node_modules/
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
+*.test.js
+*.test.tsx
+*.spec.js
+*.spec.tsx
+
+# Next.js
+/.next/
+/out/
+/build
+.next/
+
+# Production
+/dist
+
+# Misc
+.DS_Store
+*.pem
+Thumbs.db
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Local env files
+.env*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# IDE - IntelliJ/WebStorm
+.idea/
+*.iml
+*.iws
+
+# IDE - Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Logs
+logs/
+*.log
+
+# Package manager locks (keep one, ignore others based on what you use)
+# If using npm, keep package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# Optional: ignore the prosettings-crosshairs folder if it's just reference code
+# prosettings-crosshairs/
+
+# Temporary files
+*.tmp
+*.temp
+.temp/
+.tmp/
+
+# Build artifacts
+*.map
