@@ -81,6 +81,9 @@ logs/
 # yarn.lock
 # pnpm-lock.yaml
 
+# Optional: ignore the prosettings-crosshairs folder if it's just reference code
+# prosettings-crosshairs/
+
 # Temporary files
 *.tmp
 *.temp
