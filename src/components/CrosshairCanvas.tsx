@@ -51,7 +51,7 @@ const CrosshairCanvas: React.FC<CrosshairCanvasProps> = ({
     return () => window.removeEventListener('resize', updateSize);
   }, [isMounted]);
 
-  // Draw crosshair part matching prosettings implementation
+  // Draw crosshair part
   const drawCrosshairPart = (
     ctx: CanvasRenderingContext2D,
     x: number,
