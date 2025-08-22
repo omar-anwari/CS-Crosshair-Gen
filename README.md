@@ -9,6 +9,9 @@ A small project that'll let people create custom crosshairs for CS2 in their bro
 - **Code Parsing**: Import and parse the crosshair code that CS2 gives you so you can quickly recreate/modify it
 - **Preset Selection**: Build off of some premade presets
 
+## Thanks
+Thanks to https://prosettings.net/ for their site. Helped me figure out how to parse the codes. That shit hard
+
 ## To Do/Add
 - [ ] Add agents in screenshots
 - [ ] Figure out how to add dynamic crosshairs
