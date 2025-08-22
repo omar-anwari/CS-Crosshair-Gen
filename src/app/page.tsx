@@ -6,6 +6,7 @@ import CodeParser from '../components/CodeParser';
 import BackgroundSelector from '../components/BackgroundSelector';
 import ShareCode from '../components/ShareCode';
 import ConsoleCommands from '../components/ConsoleCommands';
+import ProCrosshairs from '../components/ProCrosshairs';
 import { CrosshairConfig } from '../types/crosshair';
 
 const Page = () => {
@@ -71,7 +72,7 @@ const Page = () => {
                 </p>
             </div>
 
-            <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 24px' }}>
+            <div style={{ maxWidth: '1920px', margin: '0 auto', padding: '0 24px' }}>
                 {/* Main Content - Two Column Layout on Desktop */}
                 <div style={{
                     display: 'grid',
@@ -92,26 +93,15 @@ const Page = () => {
                             borderRadius: '8px',
                             padding: '20px',
                             border: '1px solid rgba(139, 92, 246, 0.1)',
-                            position: isDesktop ? 'sticky' : 'static',
                             top: isDesktop ? '20px' : 'auto'
                         }}>
-                            <h2 style={{
-                                fontSize: '11px',
-                                fontWeight: '600',
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.05em',
-                                color: '#6b6b80',
-                                marginBottom: '16px'
-                            }}>
-                                PREVIEW
-                            </h2>
                             <CrosshairCanvas 
                                 crosshairConfig={crosshairConfig} 
                                 background={background} 
                             />
                         </div>
 
-                        {/* Background Selection */}
+                        {/* Background Selector Section */}
                         <div style={{
                             background: '#16161f',
                             borderRadius: '8px',
@@ -134,25 +124,52 @@ const Page = () => {
                             />
                         </div>
 
-                        {/* Console Commands - Show in left column on desktop */}
+                        {/* Console Commands and Pro Crosshairs Side by Side */}
                         {isDesktop && (
                             <div style={{
-                                background: '#16161f',
-                                borderRadius: '8px',
-                                padding: '20px',
-                                border: '1px solid rgba(139, 92, 246, 0.1)'
+                                display: 'grid',
+                                gridTemplateColumns: '1fr 1fr',
+                                gap: '24px'
                             }}>
-                                <h2 style={{
-                                    fontSize: '11px',
-                                    fontWeight: '600',
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '0.05em',
-                                    color: '#6b6b80',
-                                    marginBottom: '16px'
+                                {/* Console Commands Section */}
+                                <div style={{
+                                    background: '#16161f',
+                                    borderRadius: '8px',
+                                    padding: '20px',
+                                    border: '1px solid rgba(139, 92, 246, 0.1)'
                                 }}>
-                                    CONSOLE COMMANDS
-                                </h2>
-                                <ConsoleCommands config={crosshairConfig} />
+                                    <h2 style={{
+                                        fontSize: '11px',
+                                        fontWeight: '600',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.05em',
+                                        color: '#6b6b80',
+                                        marginBottom: '16px'
+                                    }}>
+                                        CONSOLE COMMANDS
+                                    </h2>
+                                    <ConsoleCommands config={crosshairConfig} />
+                                </div>
+
+                                {/* Pro Crosshairs Section */}
+                                <div style={{
+                                    background: '#16161f',
+                                    borderRadius: '8px',
+                                    padding: '20px',
+                                    border: '1px solid rgba(139, 92, 246, 0.1)'
+                                }}>
+                                    <h2 style={{
+                                        fontSize: '11px',
+                                        fontWeight: '600',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.05em',
+                                        color: '#6b6b80',
+                                        marginBottom: '16px'
+                                    }}>
+                                        PRO CROSSHAIRS
+                                    </h2>
+                                    <ProCrosshairs onSelectCrosshair={handleCodeParsed} />
+                                </div>
                             </div>
                         )}
                     </div>
@@ -226,6 +243,49 @@ const Page = () => {
                             </h2>
                             <ShareCode config={crosshairConfig} />
                         </div>
+
+                        {/* Console Commands for Mobile */}
+                        {!isDesktop && (
+                            <>
+                                <div style={{
+                                    background: '#16161f',
+                                    borderRadius: '8px',
+                                    padding: '20px',
+                                    border: '1px solid rgba(139, 92, 246, 0.1)'
+                                }}>
+                                    <h2 style={{
+                                        fontSize: '11px',
+                                        fontWeight: '600',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.05em',
+                                        color: '#6b6b80',
+                                        marginBottom: '16px'
+                                    }}>
+                                        CONSOLE COMMANDS
+                                    </h2>
+                                    <ConsoleCommands config={crosshairConfig} />
+                                </div>
+
+                                <div style={{
+                                    background: '#16161f',
+                                    borderRadius: '8px',
+                                    padding: '20px',
+                                    border: '1px solid rgba(139, 92, 246, 0.1)'
+                                }}>
+                                    <h2 style={{
+                                        fontSize: '11px',
+                                        fontWeight: '600',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.05em',
+                                        color: '#6b6b80',
+                                        marginBottom: '16px'
+                                    }}>
+                                        PRO CROSSHAIRS
+                                    </h2>
+                                    <ProCrosshairs onSelectCrosshair={handleCodeParsed} />
+                                </div>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>

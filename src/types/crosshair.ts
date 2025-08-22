@@ -2,42 +2,38 @@ export interface CrosshairConfig {
     color: string;
     size: number;
     thickness: number;
-    gap: number;  // This will always be cl_crosshairgap value
+    gap: number;
     outline: boolean;
     outlineThickness: number;
     centerDot: boolean;
-    shape: 'classic static' | 'classic' | 't';
+    shape: 'classic static' | 'classic' | 't' | 'default' | 'default static' | 'classic dynamic' | 'legacy';
     alpha: number;
-    // Store fixedCrosshairGap separately
-    fixedCrosshairGap?: number;
 }
 
 export interface Crosshair {
     gap: number;
-    outline: number;  // This is the outline thickness value
-    outlineEnabled: boolean;  // This is the boolean flag for whether outline is enabled
+    outline: number;
+    outlineThickness?: number;
     red: number;
     green: number;
     blue: number;
     alpha: number;
     splitDistance: number;
+    followRecoil: boolean;
     fixedCrosshairGap: number;
     color: number;
-    outlineThickness: number;
-    centerDot: boolean;
-    minDistance: number;
-    thickness: number;
-    size: number;
-    length?: number;  // Prosettings compatibility
-    style: number;
+    outlineEnabled: boolean;
+    innerSplitAlpha: number;
+    outerSplitAlpha: number;
     splitSizeRatio: number;
-    // Additional CS2 flags for T-style
-    tStyleEnabled?: boolean;
-    followRecoil?: boolean;
-    alphaEnabled?: boolean;
-    deployedWeaponGapEnabled?: boolean;
-    innerSplitAlpha?: number;
-    outerSplitAlpha?: number;
+    thickness: number;
+    style: number;
+    centerDotEnabled: boolean;
+    centerDot?: boolean;
+    deployedWeaponGapEnabled: boolean;
+    alphaEnabled: boolean;
+    tStyleEnabled: boolean;
+    length: number;
+    size?: number;
+    minDistance?: number;
 }
-
-//# sourceMappingURL=crosshair.d.ts.map
