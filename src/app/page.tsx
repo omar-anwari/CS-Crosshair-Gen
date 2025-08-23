@@ -47,32 +47,121 @@ const Page = () => {
 
     return (
         <div className="min-h-screen" style={{ background: '#0a0a0f' }}>
-            {/* Header */}
-            <div style={{ 
-                padding: '24px 0',
+            {/* Modern Header */}
+            <header style={{
+                background: 'linear-gradient(180deg, rgba(10, 10, 15, 0.95) 0%, rgba(10, 10, 15, 0.85) 100%)',
+                backdropFilter: 'blur(20px)',
                 borderBottom: '1px solid rgba(139, 92, 246, 0.1)',
-                marginBottom: '32px'
+                position: 'sticky',
+                top: 0,
+                zIndex: 50,
+                boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)'
             }}>
-                <h1 style={{
-                    textAlign: 'center',
-                    fontSize: '24px',
-                    fontWeight: '600',
-                    color: '#ffffff',
-                    letterSpacing: '-0.02em'
+                <div style={{
+                    maxWidth: '1920px',
+                    margin: '0 auto',
+                    padding: '0 24px'
                 }}>
-                    CS2 Crosshair Generator
-                </h1>
-                <p style={{
-                    textAlign: 'center',
-                    fontSize: '14px',
-                    color: '#6b6b80',
-                    marginTop: '8px'
-                }}>
-                    Create and customize your perfect crosshair
-                </p>
-            </div>
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        height: '80px'
+                    }}>
+                        {/* Logo/Brand */}
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '16px'
+                        }}>
+                            {/* Logo Icon */}
+                            <div style={{
+                                width: '48px',
+                                height: '48px',
+                                background: 'linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)',
+                                borderRadius: '12px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                boxShadow: '0 4px 20px rgba(139, 92, 246, 0.4)',
+                                position: 'relative'
+                            }}>
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                                    <circle cx="12" cy="12" r="2" fill="white"/>
+                                    <rect x="11" y="3" width="2" height="5" fill="white"/>
+                                    <rect x="11" y="16" width="2" height="5" fill="white"/>
+                                    <rect x="3" y="11" width="5" height="2" fill="white"/>
+                                    <rect x="16" y="11" width="5" height="2" fill="white"/>
+                                </svg>
+                            </div>
+                            
+                            {/* Brand Text */}
+                            <div>
+                                <h1 style={{
+                                    fontSize: '24px',
+                                    fontWeight: '700',
+                                    color: '#ffffff',
+                                    margin: 0,
+                                    letterSpacing: '-0.02em'
+                                }}>
+                                    CS2 Crosshair Generator
+                                </h1>
+                                <p style={{
+                                    fontSize: '13px',
+                                    color: '#71717a',
+                                    margin: 0,
+                                    marginTop: '4px',
+                                    letterSpacing: '0.02em'
+                                }}>
+                                    Create and customize your perfect crosshair
+                                </p>
+                            </div>
+                        </div>
 
-            <div style={{ maxWidth: '1920px', margin: '0 auto', padding: '0 24px' }}>
+                        {/* Right Section */}
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '12px'
+                        }}>
+                            {/* GitHub Button */}
+                            <button
+                                onClick={() => window.open('https://github.com/omar-anwari/CS-Crosshair-Gen', '_blank')}
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '8px',
+                                    padding: '10px 18px',
+                                    background: 'linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)',
+                                    border: 'none',
+                                    borderRadius: '8px',
+                                    color: '#ffffff',
+                                    fontSize: '14px',
+                                    fontWeight: '600',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s',
+                                    boxShadow: '0 4px 15px rgba(139, 92, 246, 0.3)'
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.transform = 'translateY(-2px)';
+                                    e.currentTarget.style.boxShadow = '0 6px 20px rgba(139, 92, 246, 0.4)';
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.transform = 'translateY(0)';
+                                    e.currentTarget.style.boxShadow = '0 4px 15px rgba(139, 92, 246, 0.3)';
+                                }}
+                            >
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+                                </svg>
+                                <span>Star on GitHub</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div style={{ maxWidth: '1920px', margin: '0 auto', padding: '32px 24px 24px' }}>
                 {/* Main Content - Two Column Layout on Desktop */}
                 <div style={{
                     display: 'grid',
@@ -93,7 +182,8 @@ const Page = () => {
                             borderRadius: '8px',
                             padding: '20px',
                             border: '1px solid rgba(139, 92, 246, 0.1)',
-                            top: isDesktop ? '20px' : 'auto'
+                            position: isDesktop ? 'sticky' : 'relative',
+                            top: isDesktop ? '104px' : 'auto'
                         }}>
                             <CrosshairCanvas 
                                 crosshairConfig={crosshairConfig} 

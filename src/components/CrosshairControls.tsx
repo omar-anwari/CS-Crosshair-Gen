@@ -44,12 +44,242 @@ const CrosshairControls: React.FC<CrosshairControlsProps> = ({ config, onConfigC
         { hex: '#ffa500', name: 'Orange' }
     ];
 
+    // Main crosshair preview renderer - matching CrosshairCanvas logic exactly
+    const renderCrosshairPreview = () => {
+        const containerHeight = 250;
+        const containerWidth = 400;
+        const centerX = containerWidth / 2;
+        const centerY = containerHeight / 2;
+        const scale = 3;
+        
+        // Match CrosshairCanvas calculations exactly
+        const thickness = Math.max(1, Math.floor((safeConfig.thickness + 0.2222) / 0.4444) * scale);
+        const length = Math.floor((safeConfig.size + 0.2222) / 0.4445) * scale;
+        
+        const xPos = centerX - Math.floor(thickness / 2);
+        const yPos = centerY - Math.floor(thickness / 2);
+        
+        let gap: number;
+        if (safeConfig.shape === 'classic static') {
+            gap = ((safeConfig.gap < -4 ? -Math.floor(-safeConfig.gap) : Math.floor(safeConfig.gap)) + 4) * scale;
+        } else if (safeConfig.shape === 'classic' || safeConfig.shape === 't') {
+            gap = ((safeConfig.gap < 0 ? -Math.floor(-safeConfig.gap) : Math.floor(safeConfig.gap)) + 4 + 1) * scale;
+        } else {
+            gap = ((safeConfig.gap < -4 ? -Math.floor(-safeConfig.gap) : Math.floor(safeConfig.gap)) + 4) * scale;
+        }
+        
+        const isTStyle = safeConfig.shape === 't';
+        const outlineSize = safeConfig.outline ? Math.max(1, Math.floor(safeConfig.outlineThickness * scale)) : 0;
+        const outlineOffsets = {
+            xy: outlineSize * 0.5,
+            wh: outlineSize * 1
+        };
+
+        return (
+            <div style={{
+                width: '100%',
+                marginBottom: '20px'
+            }}>
+                <div style={{
+                    width: '100%',
+                    height: `${containerHeight}px`,
+                    background: 'radial-gradient(ellipse at center, rgba(30, 30, 46, 0.8) 0%, rgba(10, 10, 15, 0.95) 100%)',
+                    borderRadius: '12px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    position: 'relative',
+                    border: '1px solid rgba(139, 92, 246, 0.2)',
+                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(0, 0, 0, 0.2)',
+                    overflow: 'hidden'
+                }}>
+                    <svg 
+                        width="100%" 
+                        height={containerHeight}
+                        style={{ position: 'absolute', top: 0, left: 0 }}
+                        viewBox={`0 0 ${containerWidth} ${containerHeight}`}
+                        preserveAspectRatio="xMidYMid meet"
+                    >
+                        {/* Render with exact CrosshairCanvas logic */}
+                        {length > 0 && (
+                            <g>
+                                {/* Draw outlines first if enabled */}
+                                {safeConfig.outline && outlineSize > 0 && (
+                                    <g>
+                                        {/* Right line outline */}
+                                        <rect
+                                            x={xPos + thickness + gap - outlineOffsets.xy}
+                                            y={yPos - outlineOffsets.xy}
+                                            width={length + outlineOffsets.wh}
+                                            height={thickness + outlineOffsets.wh}
+                                            fill="black"
+                                            opacity={safeConfig.alpha / 255}
+                                        />
+                                        {/* Left line outline */}
+                                        <rect
+                                            x={xPos - gap - length - outlineOffsets.xy}
+                                            y={yPos - outlineOffsets.xy}
+                                            width={length + outlineOffsets.wh}
+                                            height={thickness + outlineOffsets.wh}
+                                            fill="black"
+                                            opacity={safeConfig.alpha / 255}
+                                        />
+                                        {/* Top line outline - only if not T-style */}
+                                        {!isTStyle && (
+                                            <rect
+                                                x={xPos - outlineOffsets.xy}
+                                                y={yPos - gap - length - outlineOffsets.xy}
+                                                width={thickness + outlineOffsets.wh}
+                                                height={length + outlineOffsets.wh}
+                                                fill="black"
+                                                opacity={safeConfig.alpha / 255}
+                                            />
+                                        )}
+                                        {/* Bottom line outline */}
+                                        <rect
+                                            x={xPos - outlineOffsets.xy}
+                                            y={yPos + thickness + gap - outlineOffsets.xy}
+                                            width={thickness + outlineOffsets.wh}
+                                            height={length + outlineOffsets.wh}
+                                            fill="black"
+                                            opacity={safeConfig.alpha / 255}
+                                        />
+                                    </g>
+                                )}
+
+                                {/* Draw main crosshair lines */}
+                                {/* Right line */}
+                                <rect
+                                    x={xPos + thickness + gap}
+                                    y={yPos}
+                                    width={length}
+                                    height={thickness}
+                                    fill={safeConfig.color}
+                                    opacity={safeConfig.alpha / 255}
+                                />
+                                {/* Left line */}
+                                <rect
+                                    x={xPos - gap - length}
+                                    y={yPos}
+                                    width={length}
+                                    height={thickness}
+                                    fill={safeConfig.color}
+                                    opacity={safeConfig.alpha / 255}
+                                />
+                                {/* Top line - only if not T-style */}
+                                {!isTStyle && (
+                                    <rect
+                                        x={xPos}
+                                        y={yPos - gap - length}
+                                        width={thickness}
+                                        height={length}
+                                        fill={safeConfig.color}
+                                        opacity={safeConfig.alpha / 255}
+                                    />
+                                )}
+                                {/* Bottom line */}
+                                <rect
+                                    x={xPos}
+                                    y={yPos + thickness + gap}
+                                    width={thickness}
+                                    height={length}
+                                    fill={safeConfig.color}
+                                    opacity={safeConfig.alpha / 255}
+                                />
+                            </g>
+                        )}
+
+                        {/* Center dot */}
+                        {safeConfig.centerDot && (
+                            <g>
+                                {/* Dot outline if outline is enabled */}
+                                {safeConfig.outline && outlineSize > 0 && (
+                                    <rect
+                                        x={xPos - outlineOffsets.xy}
+                                        y={yPos - outlineOffsets.xy}
+                                        width={thickness + outlineOffsets.wh}
+                                        height={thickness + outlineOffsets.wh}
+                                        fill="black"
+                                        opacity={safeConfig.alpha / 255}
+                                    />
+                                )}
+                                {/* Main dot */}
+                                <rect
+                                    x={xPos}
+                                    y={yPos}
+                                    width={thickness}
+                                    height={thickness}
+                                    fill={safeConfig.color}
+                                    opacity={safeConfig.alpha / 255}
+                                />
+                            </g>
+                        )}
+                    </svg>
+                    
+                    {/* Style indicator badge */}
+                    <div style={{
+                        position: 'absolute',
+                        bottom: '8px',
+                        right: '8px',
+                        padding: '3px 8px',
+                        background: 'rgba(139, 92, 246, 0.2)',
+                        borderRadius: '4px',
+                        fontSize: '10px',
+                        color: '#a78bfa',
+                        fontFamily: 'monospace',
+                        fontWeight: '600',
+                        letterSpacing: '0.5px'
+                    }}>
+                        {safeConfig.shape === 't' ? 'T-STYLE' : safeConfig.shape === 'classic static' ? 'CLASSIC STATIC' : 'CLASSIC'}
+                    </div>
+
+                    {/* Grid overlay for better visibility */}
+                    <div style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: 0,
+                        right: 0,
+                        height: '1px',
+                        background: 'rgba(255, 255, 255, 0.03)',
+                        pointerEvents: 'none'
+                    }} />
+                    <div style={{
+                        position: 'absolute',
+                        left: '50%',
+                        top: 0,
+                        bottom: 0,
+                        width: '1px',
+                        background: 'rgba(255, 255, 255, 0.03)',
+                        pointerEvents: 'none'
+                    }} />
+                </div>
+            </div>
+        );
+    };
+
     return (
         <div style={{
             display: 'flex',
             flexDirection: 'column',
             gap: '20px'
         }}>
+            {/* Live Crosshair Preview */}
+            <div>
+                <label style={{
+                    display: 'block',
+                    fontSize: '12px',
+                    fontWeight: '600',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                    color: '#a1a1aa',
+                    marginBottom: '12px',
+                    textAlign: 'center'
+                }}>
+                    LIVE PREVIEW
+                </label>
+                {renderCrosshairPreview()}
+            </div>
+
             {/* Color Selection */}
             <div>
                 <label style={{
